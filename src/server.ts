@@ -20,6 +20,7 @@ export class ProxyServer extends EventEmitter {
     private _es: express.Application;
     private _wss: WebSocketServer;
     private _serverPort: number;
+    private _simPath: string; // use `lsof -aUc launchd_sim`
     private _adapter: Adapter;
     private _clients: Map<ws, string>;
     private _targetFetcherInterval: NodeJS.Timer;
@@ -28,8 +29,9 @@ export class ProxyServer extends EventEmitter {
         super();
     }
 
-    public async run(serverPort: number): Promise<number> {
+    public async run(serverPort: number, simPath: string): Promise<number> {
         this._serverPort = serverPort;
+        this._simPath = simPath;
         this._clients = new Map<ws, string>();
 
         debug('server.run, port=%s', serverPort);
@@ -50,7 +52,7 @@ export class ProxyServer extends EventEmitter {
         const settings = await IOSAdapter.getProxySettings({
             proxyPath: null,
             proxyPort: (port + 100),
-            proxyArgs: null
+            proxyArgs: [`-s`, `unix:${this._simPath}`]
         });
 
         this._adapter = new IOSAdapter(`/ios`, `ws://localhost:${port}`, <IIOSProxySettings>settings);

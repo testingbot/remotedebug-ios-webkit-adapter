@@ -9,6 +9,7 @@ process.title = 'remotedebug-ios-webkit-adapter';
 let argv = optimist
     .usage('Usage: $0 -p [num]')
     .alias('p', 'port').describe('p', 'the adapter listerning post').default('p', 9000)
+    .alias('s', 'sim').describe('s', 'the sim path')
     .describe('version', 'prints current version').boolean('boolean')
     .argv;
 
@@ -24,7 +25,7 @@ if (argv.help) {
 
 const server = new ProxyServer();
 
-server.run(argv.port).then(port => {
+server.run(argv.port, argv.sim).then(port => {
     console.log(`remotedebug-ios-webkit-adapter is listening on port ${port}`);
 }).catch(err => {
     console.error('remotedebug-ios-webkit-adapter failed to run with the following error:', err);

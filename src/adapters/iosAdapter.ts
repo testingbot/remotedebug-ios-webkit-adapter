@@ -55,7 +55,7 @@ export class IOSAdapter extends AdapterCollection {
 
                 let getter;
                 if (d.deviceId === 'SIMULATOR') {
-                    d.version = '9.3.0'; // TODO: Find a way to auto detect version. Currently hardcoding it.
+                    d.version = '12.2'; // TODO: Find a way to auto detect version. Currently hardcoding it.
                     getter = Promise.resolve(d);
                 } else {
                     getter = this.getDeviceVersion(d.deviceId).then(v => {
@@ -127,9 +127,11 @@ export class IOSAdapter extends AdapterCollection {
         const proxyPort = args.proxyPort;
         const proxyArgs = [
             '--no-frontend',
-            '--config=null:' + proxyPort + ',:' + (proxyPort + 1) + '-' + (proxyPort + 101)
+            '--config=null:' + proxyPort + ',:' + (proxyPort + 1) + '-' + (proxyPort + 101),
+            ...args.proxyArgs
         ];
 
+        debug(`Proxy Args ${proxyArgs}`)
         settings = {
             proxyPath: proxyPath,
             proxyPort: proxyPort,
@@ -212,6 +214,7 @@ export class IOSAdapter extends AdapterCollection {
             }
             const minor = parseInt(parts[1], 10);
             if (major > 12 || major >= 12 && minor >= 2) {
+                debug(`ios 12 protocol`)
                 return new IOS12Protocol(target);
             }
         }
