@@ -55,7 +55,7 @@ export class IOSAdapter extends AdapterCollection {
 
                 let getter;
                 if (d.deviceId === 'SIMULATOR') {
-                    d.version = '12.2'; // TODO: Find a way to auto detect version. Currently hardcoding it.
+                    d.version = this._proxySettings.simulatorVersion;
                     getter = Promise.resolve(d);
                 } else {
                     getter = this.getDeviceVersion(d.deviceId).then(v => {
@@ -135,7 +135,8 @@ export class IOSAdapter extends AdapterCollection {
         settings = {
             proxyPath: proxyPath,
             proxyPort: proxyPort,
-            proxyArgs: proxyArgs
+            proxyArgs: proxyArgs,
+            simulatorVersion: args.simulatorVersion || '12.2',
         };
 
         return settings;

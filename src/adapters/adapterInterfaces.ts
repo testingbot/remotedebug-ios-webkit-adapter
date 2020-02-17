@@ -36,4 +36,5 @@ export interface IIOSProxySettings {
     proxyPath: string;
     proxyPort: number;
     proxyArgs: string[];
+    simulatorVersion: string;
 }

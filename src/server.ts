@@ -29,7 +29,7 @@ export class ProxyServer extends EventEmitter {
         super();
     }
 
-    public async run(serverPort: number, simPath: string): Promise<number> {
+    public async run(serverPort: number, simPath: string, simVersion: string): Promise<number> {
         this._serverPort = serverPort;
         this._simPath = simPath;
         this._clients = new Map<ws, string>();
@@ -52,7 +52,8 @@ export class ProxyServer extends EventEmitter {
         const settings = await IOSAdapter.getProxySettings({
             proxyPath: null,
             proxyPort: (port + 100),
-            proxyArgs: [`-s`, `unix:${this._simPath}`]
+            proxyArgs: [`-s`, `unix:${this._simPath}`],
+            simulatorVersion: simVersion,
         });
 
         this._adapter = new IOSAdapter(`/ios`, `ws://localhost:${port}`, <IIOSProxySettings>settings);
