@@ -339,16 +339,24 @@ export abstract class IOSProtocol extends ProtocolAdapter {
 
     private onRuntimeGetProperties(msg: any): Promise<any> {
         const newPropertyDescriptors = [];
-
-        for (let i = 0; i < msg.result.result.length; i++) {
-            if (msg.result.result[i].isOwn || msg.result.result[i].nativeGetter) {
-                msg.result.result[i].isOwn = true;
-                newPropertyDescriptors.push(msg.result.result[i]);
+        if (msg.result.result) {
+            for (let i = 0; i < msg.result.result.length; i++) {
+                if (msg.result.result[i].isOwn || msg.result.result[i].nativeGetter) {
+                    msg.result.result[i].isOwn = true;
+                    newPropertyDescriptors.push(msg.result.result[i]);
+                }
             }
+            msg.result.result = null;
+        } else { // iOS13+ msg.result.result rename msg.result.properties
+            for (let i = 0; i < msg.result.properties.length; i++) {
+                if (msg.result.properties[i].isOwn || msg.result.properties[i].nativeGetter) {
+                    msg.result.properties[i].isOwn = true;
+                    newPropertyDescriptors.push(msg.result.properties[i]);
+                }
+            }
+            msg.result.properties = null;
         }
-        msg.result.result = null;
         msg.result.result = newPropertyDescriptors;
-
         return Promise.resolve(msg);
     }
 
