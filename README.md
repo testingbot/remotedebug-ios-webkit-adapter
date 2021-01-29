@@ -1,15 +1,18 @@
+<p><strong>News:</strong> RemoteDebug is now superseeded by https://inspect.dev/ – a new developer tool for macOS and Windows to inspect and debug your web apps and websites in Safari and WebViews on iOS devices 🤯🎉🔥 </p>
+
 # RemoteDebug iOS WebKit Adapter
 
-[![Build Status](https://travis-ci.org/RemoteDebug/remotedebug-ios-webkit-adapter.svg?branch=master)](https://travis-ci.org/RemoteDebug/remotedebug-ios-webkit-adapter) <a href="https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter/releases"><img src="https://img.shields.io/github/release/RemoteDebug/remotedebug-ios-webkit-adapter.svg" alt="Release"></a>
+![Build](https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter/workflows/Build/badge.svg)
+<a href="https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter/releases"><img src="https://img.shields.io/github/release/RemoteDebug/remotedebug-ios-webkit-adapter.svg" alt="Release"></a>
 
+
+<p><strong>Maintenance status:</strong> RemoteDebug iOS WebKit Adapter is not proactively maintained or extended. The project is maintained on ad-hoc basis by a small group of people who occasionally help out.</p>
+    
 RemoteDebug iOS WebKit Adapter is an protocol adapter that Safari and WebViews on iOS to be debugged from tools like VS Code, Chrome DevTools, Mozilla Debugger.html and other tools compatible with the Chrome Debugging Protocol.
 
 ![](.readme/overview.png)
 
 Read more in the introduction blog post on Medium: [Hello RemoteDebug iOS WebKit Adapter: iOS web debugging with Chrome DevTools, VS Code & Mozilla Debugger.html 📡📱](https://medium.com/@auchenberg/hello-remotedebug-ios-webkit-adapter-ios-web-debugging-with-chrome-devtools-vs-code-mozilla-2a8553df7465)
-
->**Important message for Windows users!**   
->Currently the adapter doesn't work for IOS 12+. For IOS 11 there are a few additional steps, as described [here](https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter/issues/79#issuecomment-351472710).
 
 ## Getting Started
 
@@ -23,14 +26,11 @@ Follow the instructions to install [ios-webkit-debug-proxy](https://github.com/g
 
 #### Windows
 
->See the above warning for Windows users
-
 Install [ios-webkit-debug-proxy](https://github.com/google/ios-webkit-debug-proxy#installation)  and [libimobiledevice](https://github.com/libimobiledevice/libimobiledevice). On Windows you can use [scoop](http://scoop.sh/):
 
 ```
 scoop bucket add extras
 scoop install ios-webkit-debug-proxy
-npm install -g vs-libimobile
 ```
 
 
@@ -83,7 +83,7 @@ Open your favorite tool such as Chrome DevTools or Visual Studio Code and config
 Usage: remotedebug_ios_webkit_adapter --port [num]
 
 Options:
-  -p, --port  the adapter listerning post  [default: 9000]
+  -p, --port  the adapter listening port  [default: 9000]
   --version   prints current version
 
 ```
